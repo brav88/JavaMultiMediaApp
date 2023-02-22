@@ -57,7 +57,7 @@ public class getMoviesServlet extends HttpServlet {
                     .append("                    <div class=\"navbar-nav\">")
                     .append("                        <a class=\"nav-link active\" aria-current=\"page\" href=\"index.html\">Home</a>")
                     .append("                        <a class=\"nav-link\" href=\"getMoviesServlet\">Movies</a>                        ")
-                    .append("                        <a class=\"nav-link\" href=\"getSeriesServlet\">Series</a>")
+                    .append("                        <a class=\"nav-link\" href=\"tvshows.jsp\">TV Shows</a>")
                     .append("                        <a class=\"nav-link\" href=\"\">Songs</a>")
                     .append("                    </div>")
                     .append("                </div>")
