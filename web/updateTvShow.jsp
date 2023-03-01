@@ -1,11 +1,12 @@
 <%-- 
-    Document   : saveTvShow.jsp
-    Created on : 21 feb. 2023, 19:54:35
+    Document   : updateTvShow
+    Created on : 28 feb. 2023, 18:32:12
     Author     : Samuel
 --%>
 
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 
 <%
     int id = Integer.parseInt(request.getParameter("txtId"));
@@ -19,8 +20,12 @@
     Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/MultiMedia", "root", "Admin$1234");
     Statement statement = connection.createStatement();
 
-    String sql = "INSERT INTO Shows (id, name, episodes, date, genre, country) ";
-    sql += "VALUES (" + id + ", '" + name + "', " + episodes + ", '" + date + "', '" + genre + "', '" + country + "')";
+    String sql = "UPDATE Shows SET name='" + name + 
+                         "', episodes=" + episodes + 
+                         ", date='" + date + 
+                         "', genre='" + genre + 
+                         "', country='" + country + "' ";
+            sql += "WHERE id = " + id;
 
     int rowsAffected = statement.executeUpdate(sql);
 
@@ -33,4 +38,3 @@
         rd.include(request, response);
     }
 %>
-

@@ -1,13 +1,16 @@
+<%-- 
+    Document   : loadTvShow
+    Created on : 28 feb. 2023, 18:16:04
+    Author     : Samuel
+--%>
+
+<%@page import="java.sql.*"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Edit TV Show</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     </head>
@@ -28,24 +31,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </div>
             </div>
         </nav> 
+        <%
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/MultiMedia", "root", "Admin$1234");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Shows WHERE id = " + id);
+            resultSet.next();    
+        %>
         <div class="container">
             <div class="card" style="width: 40rem;margin-top: 50px">
                 <div class="card-body">
-                    <form method="POST" action="saveMovieServlet">
+                    <form method="POST" action="updateTvShow.jsp">
                         <div class="form-floating mb-3">
-                            <input name="txtId" type="number" class="form-control" placeholder="0">
+                            <input value=<%=resultSet.getInt("id") %> name="txtId" type="number" class="form-control" placeholder="0" readonly>
                             <label>Id</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input name="txtName" type="text" class="form-control" placeholder="0">
+                            <input value='<%=resultSet.getString("name") %>' name="txtName" type="text" class="form-control" placeholder="0">
                             <label>Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input name="txtDirector" type="text" class="form-control" placeholder="0">
-                            <label>Director</label>
+                            <input value=<%=resultSet.getString("episodes") %> name="txtEpisodes" type="text" class="form-control" placeholder="0">
+                            <label>Episodes</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input name="dateRelease" type="date" class="form-control" value="2023-01-01" min="1965-01-01" max="2024-01-01">
+                            <input value=<%=resultSet.getString("date") %> name="dateRelease" type="date" class="form-control" value="2023-01-01" min="1965-01-01" max="2024-01-01">
                             <label>Date Release</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -69,7 +81,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             </div>
                         </div>
                         <div style="float:right">
-                            <button class="btn btn-success" type="submit">Save movie</button>
+                            <button class="btn btn-success" type="submit">Update movie</button>
+                            <a href="deleteTvShow.jsp?id=<%=resultSet.getInt("id") %>" class="btn btn-danger" type="submit">Delete movie</a>
                         </div>
                     </form> 
                 </div>

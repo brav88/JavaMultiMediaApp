@@ -114,7 +114,7 @@
                 </thead>
                 <tbody>
                     <% while (resultSet.next()) {%>
-                    <tr>
+                    <tr onclick="window.location.href='loadTvShow.jsp?id=<%=resultSet.getString("id")%>'">
                         <td><%=resultSet.getString("id")%></td>
                         <td><%=resultSet.getString("name")%></td>
                         <td><%=resultSet.getString("episodes")%></td>
